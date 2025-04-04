@@ -3,6 +3,8 @@ import SideNav from "./_components/SideNav";
 import DashboardHeader from "./_components/DashboardHeader";
 
 function DashboardLayout({ children }) {
+  const checkUserBudgets = () => {};
+
   return (
     <div>
       <div className="fixed md:w-64 hidden md:block">
