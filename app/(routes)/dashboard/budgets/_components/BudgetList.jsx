@@ -1,101 +1,51 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreateBudget from "./CreateBudget";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import EmojiPicker from "emoji-picker-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { db } from "@/utils/dbConfig";
+import { desc, eq, getTableColumns, sql } from "drizzle-orm";
+import { Budgets, Expenses } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
-import { toast } from "sonner";
-import { db } from "@/utils/dbConfig.jsx";
-import { Budgets } from "@/utils/schema";
+import BudgetItem from "./BudgetItem";
 
 function BudgetList() {
-  const [emojiIcon, setEmojiIcon] = useState("😊");
-  const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [budgetList, setBudgetList] = useState([]);
   const { user } = useUser();
 
-  const onCreateBudget = async () => {
-    const result = await db
-      .insert(Budgets)
-      .values({
-        name: name,
-        amount: amount,
-        icon: emojiIcon,
-        createdBy: user?.primaryEmailAddress?.emailAddress,
-      })
-      .returning({ insertedId: Budgets.id });
+  useEffect(() => {
+    getBudgetList();
+  }, [user]);
 
-    if (result) {
-      toast("New Budget Created");
-    }
+  // Used to get Budget List
+  const getBudgetList = async () => {
+    const result = await db
+      .select({
+        ...getTableColumns(Budgets),
+        totalSpend: sql`SUM(${Expenses.amount})`.mapWith(Number),
+        totalItem: sql`COUNT(${Expenses.id})`.mapWith(Number),
+      })
+      .from(Budgets)
+      .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
+      .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
+      .groupBy(Budgets.id)
+      .orderBy(desc(Budgets.id));
+    setBudgetList(result);
   };
+
   return (
-    <div className="mt-7">
-      <Dialog>
-        <DialogTrigger asChild>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <CreateBudget />
-          </div>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create New Budget</DialogTitle>
-            <DialogDescription>
-              <div className="mt-5">
-                <Button
-                  variant={"outline"}
-                  onClick={() => setOpenEmojiPicker(!openEmojiPicker)}
-                  className={"cursor-pointer text-lg"}
-                  size="lg"
-                >
-                  {emojiIcon}
-                </Button>
-                <div className="absolute">
-                  <EmojiPicker
-                    open={openEmojiPicker}
-                    onEmojiClick={(e) => {
-                      setEmojiIcon(e.emoji);
-                      setOpenEmojiPicker(false);
-                    }}
-                  />
-                </div>
-                <div className="mt-2">
-                  <h2 className="text-black font-medium my-1">Budget Name</h2>
-                  <Input
-                    placeholder="e.g. Home Decor"
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className="mt-2">
-                  <h2 className="text-black font-medium my-1">Budget Amount</h2>
-                  <Input
-                    placeholder="e.g. 5000"
-                    type="number"
-                    onChange={(e) => setAmount(e.target.value)}
-                  />
-                </div>
-                <Button
-                  disabled={!(name && amount)}
-                  className={"mt-5 w-full"}
-                  onClick={onCreateBudget}
-                >
-                  Create New Budget
-                </Button>
-              </div>
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+    <div className="mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <CreateBudget refreshData={() => getBudgetList()} />
+        {budgetList?.length > 0
+          ? budgetList.map((budget, index) => (
+              <BudgetItem key={index} budget={budget} />
+            ))
+          : [1, 2, 3, 4, 5].map((item, index) => (
+              <div
+                key={index}
+                className="w-full bg-slate-200 rounded-lg h-[170px] animate-pulse"
+              ></div>
+            ))}
+      </div>
     </div>
   );
 }
