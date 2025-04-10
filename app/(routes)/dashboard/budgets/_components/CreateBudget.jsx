@@ -17,6 +17,7 @@ import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { db } from "@/utils/dbConfig.jsx";
 import { Budgets } from "@/utils/schema";
+import * as Dialog from "@radix-ui/react-dialog";
 
 function CreateBudget({ refreshData }) {
   const [emojiIcon, setEmojiIcon] = useState("😊");

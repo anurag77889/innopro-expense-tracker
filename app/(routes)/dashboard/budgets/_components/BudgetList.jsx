@@ -6,6 +6,7 @@ import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import { Budgets, Expenses } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import BudgetItem from "./BudgetItem";
+import * as Dialog from "@radix-ui/react-dialog";
 
 function BudgetList() {
   const [budgetList, setBudgetList] = useState([]);
