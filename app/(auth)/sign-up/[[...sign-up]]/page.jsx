@@ -13,7 +13,7 @@ export default function Page() {
             />
           </div>
 
-          <SignUp />
+          <SignUp afterSignUpUrl="/dashboard" />
         </div>
       </div>
     </section>

@@ -10,7 +10,13 @@ function Header() {
 
   return (
     <div className="p-5 flex justify-between items-center shadow-sm">
-      <Image src="/logo.svg" alt="logo" width={50} height={50} />
+      <Image
+        src="/finallogo.png"
+        alt="logo"
+        width={120}
+        height={120}
+        className="cursor-pointer"
+      />
       {isSignedIn ? (
         <UserButton />
       ) : (

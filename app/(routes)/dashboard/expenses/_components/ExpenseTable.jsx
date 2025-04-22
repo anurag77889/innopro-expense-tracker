@@ -1,11 +1,11 @@
 import { Expenses } from "@/utils/schema";
-import { Trash } from "lucide-react";
+import { Trash, Trash2 } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 import { db } from "@/utils/dbConfig";
 import { eq, and, desc, getTableColumns, sql } from "drizzle-orm";
 
-function ExpenseTable({ expenseList, refreshData }) {
+function ExpenseTable({ expenseList = [], refreshData }) {
   const deleteExpense = async (expenses) => {
     const result = await db
       .delete(Expenses)
@@ -33,7 +33,7 @@ function ExpenseTable({ expenseList, refreshData }) {
           <h2>{expenses.amount}</h2>
           <h2>{expenses.createdAt}</h2>
           <h2>
-            <Trash
+            <Trash2
               className="text-red-600 hover:text-red-800 cursor-pointer"
               onClick={() => deleteExpense(expenses)}
             />
