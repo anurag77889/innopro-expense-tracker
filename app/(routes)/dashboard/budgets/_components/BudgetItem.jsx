@@ -14,7 +14,7 @@ function BudgetItem({ budget }) {
       <div className="p-5 border rounded-lg hover:shadow-md cursor-pointer h-[170px]">
         <div className="gap-2 flex items-center justify-between">
           <div className="flex gap-2 items-center">
-            <h2 className="text-2xl p-3 px-4 bg-slate-100 rounded-full">
+            <h2 className="text-2xl p-3 px-4 bg-green-100 rounded-full">
               {budget?.icon}
             </h2>
             <div>
@@ -35,7 +35,7 @@ function BudgetItem({ budget }) {
               &#8377;{budget.amount - budget.totalSpend} Remaining
             </h2>
           </div>
-          <div className="w-full bg-slate-300 h-2 rounded-full">
+          <div className="w-full bg-green-300 h-2 rounded-full">
             <div
               className=" bg-primary h-2 rounded-full"
               style={{

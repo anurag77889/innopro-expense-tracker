@@ -8,8 +8,8 @@ import moment from "moment/moment";
 import { Loader } from "lucide-react";
 
 function AddExpense({ budgetId, user, refreshData }) {
-  const [name, setName] = useState();
-  const [amount, setAmount] = useState();
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const addNewExpense = async () => {

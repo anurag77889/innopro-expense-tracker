@@ -17,15 +17,21 @@ function SideNav() {
   const menuList = [
     { id: 1, name: "Dashboard", icon: LayoutGrid, path: "/dashboard" },
     { id: 2, name: "Budgets", icon: PiggyBank, path: "/dashboard/budgets" },
-    { id: 3, name: "Expenses", icon: ReceiptText, path: "/dashboard/expenses" },
+    {
+      id: 3,
+      name: "Expenses",
+      icon: ReceiptText,
+      path: "/dashboard/expenses",
+    },
     { id: 4, name: "Upgrade", icon: ShieldCheck, path: "/dashboard/upgrade" },
+    { id: 5, name: "Profile", icon: User2, path: "/dashboard/profile" },
   ];
 
   const path = usePathname();
 
   return (
     <div className="h-screen p-5 border shadow-sm">
-      <Link href={"/dashboard"}>
+      <Link href={"/"}>
         <Image src="/finalLogo.png" alt="logo" width={160} height={100} />
       </Link>
 
@@ -33,18 +39,14 @@ function SideNav() {
         {menuList.map((menu) => (
           <Link href={menu.path} key={menu.id}>
             <div
-              className={`flex gap-2 items-center mb-2 text-gray-500 font-medium p-5 cursor-pointer rounded-md hover:text-primary hover:bg-blue-100
-              ${path === menu.path ? "text-primary bg-blue-100" : ""}`}
+              className={`flex gap-2 items-center mb-2 text-gray-500 font-medium p-5 cursor-pointer rounded-md hover:text-primary hover:bg-green-200
+              ${path === menu.path ? "text-primary bg-green-200" : ""}`}
             >
               <menu.icon />
               {menu.name}
             </div>
           </Link>
         ))}
-        <div className=" flex gap-2 items-center text-gray-500 font-medium p-5 cursor-pointer rounded-md hover:text-primary hover:bg-blue-100">
-          <User2 />
-          <span>Profile</span>
-        </div>
       </div>
     </div>
   );

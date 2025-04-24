@@ -57,10 +57,17 @@ function Dashboard() {
 
   return (
     <div className="p-8">
-      <h2 className="font-bold text-3xl">Hi, {user?.fullName} ✌️</h2>
-      <p className="text-gray-500">
-        Here's what happening with your money, Let's Manage your expense
-      </p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h2 className="font-bold text-3xl ">
+            Hi, <span className="text-primary">{user?.fullName}</span> ✌️
+          </h2>
+          <p className="text-gray-500">
+            Here's what happening with your money, Let's Manage your expense
+          </p>
+        </div>
+        <UserButton />
+      </div>
       <CardInfo budgetList={budgetList} />
       <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-5">
         <div className="md:col-span-2">
