@@ -33,7 +33,7 @@ function SideNav() {
     <div className="h-screen p-5 border shadow-sm">
       <Link href={"/"}>
         <Image
-          src="/finalLogo.png"
+          src="/finallogo.png"
           alt="logo"
           width={160}
           height={100}

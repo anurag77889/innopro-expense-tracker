@@ -32,9 +32,9 @@ function ExpenseTable({ expenseList = [], refreshData }) {
           className="grid grid-cols-4 border-b-2 border-b-green-200 p-2"
           key={index}
         >
-          <h2>{expenses.name}</h2>
-          <h2>{expenses.amount}</h2>
-          <h2>{expenses.createdAt}</h2>
+          <h2>{expenses.name || expenses.Expenses.name}</h2>
+          <h2>{expenses.amount || expenses.Expenses.amount}</h2>
+          <h2>{expenses.createdAt || expenses.Expenses.createdAt}</h2>
           <h2>
             <Trash2
               className="text-red-600 hover:text-red-800 cursor-pointer"
