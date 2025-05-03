@@ -9,6 +9,8 @@ import { Budgets, Expenses } from "@/utils/schema";
 import BarChartDashboard from "./_components/BarChartDashboard";
 import BudgetItem from "./budgets/_components/BudgetItem";
 import ExpenseTable from "./expenses/_components/ExpenseTable";
+import { Button } from "@/components/ui/button";
+import { Printer } from "lucide-react";
 
 function Dashboard() {
   const { user } = useUser();
@@ -55,6 +57,11 @@ function Dashboard() {
     setExpensesList(result);
   };
 
+  // Handle print
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="p-8">
       <div className="flex justify-between items-center">
@@ -63,15 +70,25 @@ function Dashboard() {
             Hi, <span className="text-primary">{user?.fullName}</span> ✌️
           </h2>
           <p className="text-gray-500">
-            Here's what happening with your money, Let's Manage your expense
+            Here's a snapshot of your financial activity.
           </p>
         </div>
-        <UserButton />
+        <div className="flex gap-5 items-center">
+          <Button
+            onClick={handlePrint}
+            className=" bg-green-100 hover:bg-green-200 text-green-700 border-green-200 gap-2 print:hidden cursor-pointer"
+          >
+            <Printer size={18} weight="fill" />
+            Print
+          </Button>
+          <UserButton />
+        </div>
       </div>
       <CardInfo budgetList={budgetList} />
       <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-5">
         <div className="md:col-span-2">
           <BarChartDashboard budgetList={budgetList} />
+          <h2 className="font-bold text-lg mt-5">Latest Expenses</h2>
           <ExpenseTable
             expenseList={expensesList}
             refreshData={() => getBudgetList()}

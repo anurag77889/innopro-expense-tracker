@@ -6,6 +6,8 @@ import { db } from "@/utils/dbConfig";
 import { Budgets, Expenses } from "@/utils/schema";
 import { desc, eq } from "drizzle-orm";
 import { useUser } from "@clerk/nextjs";
+import { Printer } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 function ExpensePage() {
   const { user } = useUser();
@@ -38,8 +40,24 @@ function ExpensePage() {
     );
   };
 
+  // Handle print
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="p-10">
+      <div className="flex justify-between">
+        <h2 className="text-3xl font-bold">Total Expenses</h2>
+        <Button
+          onClick={handlePrint}
+          className=" bg-green-100 hover:bg-green-200 text-green-700 border-green-200 gap-2 print:hidden cursor-pointer"
+        >
+          <Printer size={18} weight="fill" />
+          Print
+        </Button>
+      </div>
+
       <ExpenseTable
         expenseList={expenseList}
         refreshData={() =>
