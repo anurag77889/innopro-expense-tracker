@@ -20,6 +20,8 @@ export const Expenses = pgTable("expenses", {
   id: serial("id").primaryKey().notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   amount: numeric("amount").notNull().default(0),
-  budgetId: integer("budgetId").references(() => Budgets.id),
+  budgetId: integer("budgetId")
+    .notNull(false)
+    .references(() => Budgets.id),
   createdAt: varchar("createdAt").notNull(),
 });

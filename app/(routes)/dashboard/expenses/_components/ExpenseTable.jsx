@@ -3,7 +3,7 @@ import { Trash, Trash2 } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
 import { db } from "@/utils/dbConfig";
-import { eq, and, desc, getTableColumns, sql } from "drizzle-orm";
+import { eq, and, desc, getTableColumns, sql, isNull, or } from "drizzle-orm";
 
 function ExpenseTable({ expenseList = [], refreshData }) {
   const deleteExpense = async (expenses) => {

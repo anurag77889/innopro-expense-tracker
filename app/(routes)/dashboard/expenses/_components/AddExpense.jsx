@@ -24,7 +24,7 @@ function AddExpense({ budgetId, user, refreshData }) {
       })
       .returning({ insertedId: Budgets.id });
 
-    setAmount("");
+    setAmount(0);
     setName("");
     if (result) {
       setLoading(false);
