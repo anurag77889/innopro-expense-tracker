@@ -35,6 +35,7 @@ function ExpensePage() {
     const result = await db
       .insert(Expenses)
       .values({
+        id: id,
         name: name,
         amount: amount,
         budgetId: null,
