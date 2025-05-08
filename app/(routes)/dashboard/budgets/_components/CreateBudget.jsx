@@ -93,7 +93,11 @@ function CreateBudget({ refreshData }) {
                 <Input
                   placeholder="e.g. &#8377;5000"
                   type="number"
-                  onChange={(e) => setAmount(Number(e.target.value))}
+                  min={0}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setAmount(value >= 0 ? value : 0);
+                  }}
                 />
               </div>
             </div>

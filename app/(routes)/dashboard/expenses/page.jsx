@@ -66,7 +66,8 @@ function ExpensePage() {
       .where(
         or(
           eq(Budgets.createdBy, email), // Budget belongs to user
-          eq(Expenses.budgetId, null) // Or expense has no budget
+          eq(Expenses.budgetId, 0), // Or expense has no budget
+          isNull(Expenses.budgetId)
         )
       )
       .orderBy(desc(Expenses.id));
