@@ -1,7 +1,3 @@
-Here's a professional and comprehensive `README.md` file for your project, [innopro-expense-tracker](https://github.com/anurag77889/innopro-expense-tracker). This version is designed to clearly communicate the purpose, features, and setup instructions for your application, making it accessible to users and contributors alike.
-
----
-
 # 💸 InnoPro Expense Tracker
 
 **InnoPro Expense Tracker** is a modern, full-stack web application designed to help individuals and teams efficiently manage their expenses. Built with the latest technologies, it offers a seamless user experience for tracking income and expenditures, categorizing transactions, and gaining financial insights.
